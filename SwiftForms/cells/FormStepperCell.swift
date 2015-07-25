@@ -40,30 +40,22 @@ public class FormStepperCell: FormTitleCell {
     
     public override func update() {
         super.update()
+        let config = rowDescriptor.configuration
         
-        if let maximumValue = rowDescriptor.configuration[FormRowDescriptor.Configuration.MaximumValue] as? Double {
-            stepperView.maximumValue = maximumValue
-        }
-        
-        if let minimumValue = rowDescriptor.configuration[FormRowDescriptor.Configuration.MinimumValue] as? Double {
-            stepperView.minimumValue = minimumValue
-        }
-        
-        if let steps = rowDescriptor.configuration[FormRowDescriptor.Configuration.Steps] as? Double {
-            stepperView.stepValue = steps
-        }
+        config.maximumValue.map { stepperView.maximumValue = $0 }
+        config.minimumValue.map { stepperView.minimumValue = $0 }
+        config.steps.map { stepperView.stepValue = $0 }
         
         titleLabel.text = rowDescriptor.title
         
-        if rowDescriptor.value != nil {
-            stepperView.value = rowDescriptor.value as! Double
-        }
-        else {
+        if let value = rowDescriptor.value as? Double {
+            stepperView.value = value
+        } else {
             stepperView.value = stepperView.minimumValue
             rowDescriptor.value = stepperView.minimumValue
         }
         
-        countLabel.text = rowDescriptor.value.description
+        countLabel.text = rowDescriptor.value?.description
     }
     
     public override func constraintsViews() -> [String : UIView] {
@@ -71,19 +63,17 @@ public class FormStepperCell: FormTitleCell {
     }
     
     public override func defaultVisualConstraints() -> [String] {
-        var constraints: [String] = []
-        
-        constraints.append("V:|[titleLabel]|")
-        constraints.append("V:|[countLabel]|")
-        
-        constraints.append("H:|-16-[titleLabel][countLabel]-[stepperView]-16-|")
-        return constraints
+        return [
+            "V:|[titleLabel]|",
+            "V:|[countLabel]|",
+            "H:|-16-[titleLabel][countLabel]-[stepperView]-16-|"
+        ]
     }
     
     /// MARK: Actions
     
     internal func valueChanged(_: UISwitch) {
         rowDescriptor.value = stepperView.value
-        countLabel.text = rowDescriptor.value.description
+        countLabel.text = rowDescriptor.value?.description
     }
 }

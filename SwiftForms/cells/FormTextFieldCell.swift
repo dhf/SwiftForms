@@ -49,15 +49,14 @@ public class FormTextFieldCell: FormBaseCell {
     public override func update() {
         super.update()
         
-        if let showsInputToolbar = rowDescriptor.configuration[FormRowDescriptor.Configuration.ShowsInputToolbar] as? Bool {
-            if showsInputToolbar && textField.inputAccessoryView == nil {
+        if let showToolbar = rowDescriptor.configuration.showsInputToolbar
+            where textField.inputAccessoryView == .None && showToolbar == true {
                 textField.inputAccessoryView = inputAccesoryView()
-            }
         }
     
         titleLabel.text = rowDescriptor.title
         textField.text = rowDescriptor.value as? String
-        textField.placeholder = rowDescriptor.configuration[FormRowDescriptor.Configuration.Placeholder] as? String
+        textField.placeholder = rowDescriptor.configuration.placeholder
         
         textField.secureTextEntry = false
         textField.clearButtonMode = .WhileEditing
@@ -109,30 +108,22 @@ public class FormTextFieldCell: FormBaseCell {
     
     public override func constraintsViews() -> [String : UIView] {
         var views = ["titleLabel" : titleLabel, "textField" : textField]
-        if self.imageView!.image != nil {
+        if let _ = imageView?.image {
             views["imageView"] = imageView
         }
         return views
     }
     
     public override func defaultVisualConstraints() -> [String] {
-        
-        if self.imageView!.image != nil {
-            
-            if titleLabel.text != nil && count(titleLabel.text!) > 0 {
-                return ["H:[imageView]-[titleLabel]-[textField]-16-|"]
-            }
-            else {
-                return ["H:[imageView]-[textField]-16-|"]
-            }
-        }
-        else {
-            if titleLabel.text != nil && count(titleLabel.text!) > 0 {
-                return ["H:|-16-[titleLabel]-[textField]-16-|"]
-            }
-            else {
-                return ["H:|-16-[textField]-16-|"]
-            }
+        switch (self.imageView?.image, self.titleLabel.text) {
+        case (.Some, .Some(let t)) where !t.isEmpty:
+            return ["H:[imageView]-[titleLabel]-[textField]-16-|"]
+        case (.Some, .None):
+            return ["H:[imageView]-[textField]-16-|"]
+        case (.None, .Some(let t)) where !t.isEmpty:
+            return ["H:|-16-[titleLabel]-[textField]-16-|"]
+        default:
+            return ["H:|-16-[textField]-16-|"]
         }
     }
     

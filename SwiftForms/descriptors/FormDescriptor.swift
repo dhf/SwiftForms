@@ -6,17 +6,12 @@
 //  Copyright (c) 2014 Miguel Angel Ortuño. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 public class FormDescriptor: NSObject {
 
-    /// MARK: Properties
-    
-    public var title: String!
-    
+    public var title = ""
     public var sections: [FormSectionDescriptor] = []
-    
-    /// MARK: Public
     
     public func addSection(section: FormSectionDescriptor) {
         sections.append(section)
@@ -28,29 +23,24 @@ public class FormDescriptor: NSObject {
         }
     }
     
-    public func formValues() -> NSDictionary {
-        
-        var formValues = NSMutableDictionary()
+    public func formValues() -> Dictionary<String, AnyObject> {
+
+        var formValues: [String: AnyObject] = [:]
 
         for section in sections {
             for row in section.rows {
-                if row.tag != nil && row.rowType != .Button {
-                    if row.value != nil {
-                        formValues[row.tag!] = row.value!
-                    }
-                    else {
-                        formValues[row.tag!] = NSNull()
-                    }
+                if let val = row.value where row.rowType != .Button {
+                    formValues[row.tag] = val
                 }
             }
         }
-        return formValues.copy() as! NSDictionary
+        return formValues
     }
     
     public func validateForm() -> FormRowDescriptor! {
         for section in sections {
             for row in section.rows {
-                if let required = row.configuration[FormRowDescriptor.Configuration.Required] as? Bool {
+                if let required = row.configuration.required {
                     if required && row.value == nil {
                         return row
                     }

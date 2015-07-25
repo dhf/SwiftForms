@@ -36,25 +36,17 @@ public class FormSliderCell: FormTitleCell {
     
     public override func update() {
         super.update()
+        let config = rowDescriptor.configuration
         
-        if let maximumValue = rowDescriptor.configuration[FormRowDescriptor.Configuration.MaximumValue] as? Float {
-            sliderView.maximumValue = maximumValue
-        }
-        
-        if let minimumValue = rowDescriptor.configuration[FormRowDescriptor.Configuration.MinimumValue] as? Float {
-            sliderView.minimumValue = minimumValue
-        }
-        
-        if let continuous = rowDescriptor.configuration[FormRowDescriptor.Configuration.Continuous] as? Bool {
-            sliderView.continuous = continuous
-        }
+        config.maximumValue.map { sliderView.maximumValue = Float($0) }
+        config.minimumValue.map { sliderView.minimumValue = Float($0) }
+        config.continuous.map { sliderView.continuous = $0 }
         
         titleLabel.text = rowDescriptor.title
         
-        if rowDescriptor.value != nil {
-            sliderView.value = rowDescriptor.value as! Float
-        }
-        else {
+        if let value = rowDescriptor.value as? Float {
+            sliderView.value = value
+        } else {
             sliderView.value = sliderView.minimumValue
             rowDescriptor.value = sliderView.minimumValue
         }
@@ -65,12 +57,10 @@ public class FormSliderCell: FormTitleCell {
     }
     
     public override func defaultVisualConstraints() -> [String] {
-        var constraints: [String] = []
-        
-        constraints.append("V:|[titleLabel]|")
-        constraints.append("H:|-16-[titleLabel]-16-[sliderView]-16-|")
-        
-        return constraints
+        return [
+            "V:|[titleLabel]|",
+            "H:|-16-[titleLabel]-16-[sliderView]-16-|"
+        ]
     }
     
     /// MARK: Actions

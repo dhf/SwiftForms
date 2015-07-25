@@ -36,6 +36,7 @@
 		0CCA34891B050525006D9666 /* FormSectionDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CCA34771B050525006D9666 /* FormSectionDescriptor.swift */; };
 		0CDBB4F11B10699A00BE6ACF /* FormStepperCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDBB4F01B10699A00BE6ACF /* FormStepperCell.swift */; };
 		0CDBB4F31B10724600BE6ACF /* FormSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDBB4F21B10724600BE6ACF /* FormSliderCell.swift */; };
+		E7EF07961B63AD0B00C70B3B /* FunctionalAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7EF07951B63AD0B00C70B3B /* FunctionalAdditions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +97,7 @@
 		0CCA34771B050525006D9666 /* FormSectionDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormSectionDescriptor.swift; sourceTree = "<group>"; };
 		0CDBB4F01B10699A00BE6ACF /* FormStepperCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormStepperCell.swift; sourceTree = "<group>"; };
 		0CDBB4F21B10724600BE6ACF /* FormSliderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormSliderCell.swift; sourceTree = "<group>"; };
+		E7EF07951B63AD0B00C70B3B /* FunctionalAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FunctionalAdditions.swift; path = utilities/FunctionalAdditions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,7 +127,9 @@
 				0CCA343C1B04FBE0006D9666 /* SwiftFormsTests */,
 				0CCA33D81B04FA5A006D9666 /* Products */,
 			);
+			indentWidth = 4;
 			sourceTree = "<group>";
+			tabWidth = 4;
 		};
 		0CCA33D81B04FA5A006D9666 /* Products */ = {
 			isa = PBXGroup;
@@ -161,6 +165,7 @@
 		0CCA342D1B04FBE0006D9666 /* SwiftForms */ = {
 			isa = PBXGroup;
 			children = (
+				E7EF07941B63ACDE00C70B3B /* Utilities */,
 				0CCA34621B050525006D9666 /* cells */,
 				0CCA34701B050525006D9666 /* controllers */,
 				0CCA34741B050525006D9666 /* descriptors */,
@@ -242,6 +247,14 @@
 				0CCA34771B050525006D9666 /* FormSectionDescriptor.swift */,
 			);
 			path = descriptors;
+			sourceTree = "<group>";
+		};
+		E7EF07941B63ACDE00C70B3B /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				E7EF07951B63AD0B00C70B3B /* FunctionalAdditions.swift */,
+			);
+			name = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -374,6 +387,7 @@
 				0CCA34781B050525006D9666 /* FormBaseCell.swift in Sources */,
 				0CCA34831B050525006D9666 /* FormTextViewCell.swift in Sources */,
 				0CCA34841B050525006D9666 /* FormOptionsSelectorController.swift in Sources */,
+				E7EF07961B63AD0B00C70B3B /* FunctionalAdditions.swift in Sources */,
 				0CCA34861B050525006D9666 /* FormViewController.swift in Sources */,
 				0CCA347B1B050525006D9666 /* FormButtonCell.swift in Sources */,
 				0CDBB4F11B10699A00BE6ACF /* FormStepperCell.swift in Sources */,

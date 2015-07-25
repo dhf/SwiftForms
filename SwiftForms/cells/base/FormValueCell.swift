@@ -17,7 +17,7 @@ public class FormValueCell: FormBaseCell {
     
     /// MARK: Properties
     
-    private var customConstraints: [AnyObject]!
+    private var customConstraints: [AnyObject] = []
     
     /// MARK: FormBaseCell
     
@@ -55,12 +55,9 @@ public class FormValueCell: FormBaseCell {
     public override func defaultVisualConstraints() -> [String] {
         
         // apply default constraints
-        var rightPadding = 0
-        if accessoryType == .None {
-            rightPadding = 16
-        }
+        let rightPadding = accessoryType == .None ? 16 : 0
         
-        if titleLabel.text != nil && count(titleLabel.text!) > 0 {
+        if let text = titleLabel.text where !text.isEmpty {
             return ["H:|-16-[titleLabel]-[valueLabel]-\(rightPadding)-|"]
         }
         else {

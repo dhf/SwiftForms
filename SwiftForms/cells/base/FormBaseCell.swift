@@ -58,7 +58,6 @@ public class FormBaseCell: UITableViewCell {
     }
     
     public func inputAccesoryView() -> UIToolbar {
-        
         let actionBar = UIToolbar()
         actionBar.translucent = true
         actionBar.sizeToFit()
@@ -90,18 +89,13 @@ public class FormBaseCell: UITableViewCell {
     /// MARK: Constraints
     
     public override func updateConstraints() {
-        
-        if customConstraints.count > 0 {
-            contentView.removeConstraints(customConstraints)
-        }
-        
-        var views = constraintsViews()
-        
+        NSLayoutConstraint.deactivateConstraints(customConstraints)
         customConstraints.removeAll()
+
+        let views = constraintsViews()
+        let visualConstraints: [String]
         
-        var visualConstraints: NSArray!
-        
-        if let visualConstraintsClosure = rowDescriptor.configuration[FormRowDescriptor.Configuration.VisualConstraintsClosure] as? VisualConstraintsClosure {
+        if let visualConstraintsClosure = rowDescriptor.configuration.visualConstraintsClosure {
             visualConstraints = visualConstraintsClosure(self)
         }
         else {
@@ -109,7 +103,7 @@ public class FormBaseCell: UITableViewCell {
         }
         
         for visualConstraint in visualConstraints {
-            let constraints = NSLayoutConstraint.constraintsWithVisualFormat(visualConstraint as! String, options: NSLayoutFormatOptions(0), metrics: nil, views: views)
+            let constraints = NSLayoutConstraint.constraintsWithVisualFormat(visualConstraint, options: NSLayoutFormatOptions(0), metrics: nil, views: views)
             for constraint in constraints {
                 customConstraints.append(constraint)
             }

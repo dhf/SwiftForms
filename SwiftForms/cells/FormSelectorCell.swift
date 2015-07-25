@@ -16,23 +16,18 @@ public class FormSelectorCell: FormValueCell {
         super.update()
         
         titleLabel.text = rowDescriptor.title
-
-        var title: String!
+        
+        var title = ""
         
         if let selectedValues = rowDescriptor.value as? NSArray { // multiple values
             
             let indexedSelectedValues = NSSet(array: selectedValues as [AnyObject])
             
-            if let options = rowDescriptor.configuration[FormRowDescriptor.Configuration.Options] as? NSArray {
+            if let options = rowDescriptor.configuration.options {
                 for optionValue in options {
                     if indexedSelectedValues.containsObject(optionValue) {
-                        let optionTitle = rowDescriptor.titleForOptionValue(optionValue as! NSObject)
-                        if title != nil {
-                            title = title + ", \(optionTitle)"
-                        }
-                        else {
-                            title = optionTitle
-                        }
+                        let optionTitle = rowDescriptor.titleForOptionValue(optionValue)
+                        title = title + ", \(optionTitle)"
                     }
                 }
             }
@@ -41,12 +36,12 @@ public class FormSelectorCell: FormValueCell {
             title = rowDescriptor.titleForOptionValue(selectedValue)
         }
         
-        if title != nil && count(title) > 0 {
+        if !title.isEmpty {
             valueLabel.text = title
             valueLabel.textColor = UIColor.blackColor()
         }
         else {
-            valueLabel.text = rowDescriptor.configuration[FormRowDescriptor.Configuration.Placeholder] as? String
+            valueLabel.text = rowDescriptor.configuration.placeholder
             valueLabel.textColor = UIColor.lightGrayColor()
         }
     }
@@ -56,25 +51,19 @@ public class FormSelectorCell: FormValueCell {
             
             formViewController.view.endEditing(true)
             
-            var selectorClass: UIViewController.Type!
-            
-            if let selectorControllerClass: AnyClass = row.rowDescriptor.configuration[FormRowDescriptor.Configuration.SelectorControllerClass] as? AnyClass {
-                selectorClass = selectorControllerClass as? UIViewController.Type
+            let selectorController: UIViewController
+
+            if let selectorControllerClass = row.rowDescriptor.configuration.selectorControllerClass as? UIViewController.Type {
+                selectorController = selectorControllerClass()
             }
             else { // fallback to default cell class
-                selectorClass = FormOptionsSelectorController.self
+                selectorController = FormOptionsSelectorController()
             }
             
-            if selectorClass != nil {
-                let selectorController = selectorClass()
-                if let formRowDescriptorViewController = selectorController as? FormSelector {
-                    formRowDescriptorViewController.formCell = row
-                    formViewController.navigationController?.pushViewController(selectorController, animated: true)
-                }
-                else {
-                    fatalError("FormRowDescriptor.Configuration.SelectorControllerClass must conform to FormSelector protocol.")
-                }
-            }
+            // the type of `selectorControllerClass` is `FormSelector`, therefore:
+            // `selectorController` is guaranteed to conform to `FormSelector`
+            (selectorController as! FormSelector).formCell = row
+            formViewController.navigationController?.pushViewController(selectorController, animated: true)
         }
     }
 }

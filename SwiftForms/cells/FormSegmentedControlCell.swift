@@ -42,24 +42,17 @@ public class FormSegmentedControlCell: FormBaseCell {
         
         segmentedControl.addTarget(self, action: "valueChanged:", forControlEvents: .ValueChanged)
     }
-    
+
     public override func update() {
         super.update()
-        
+
         titleLabel.text = rowDescriptor.title
         updateSegmentedControl()
-        
-        var idx = 0
-        if rowDescriptor.value != nil {
-            if let options = rowDescriptor.configuration[FormRowDescriptor.Configuration.Options] as? NSArray {
-                for optionValue in options {
-                    if optionValue as! NSObject == rowDescriptor.value {
-                        segmentedControl.selectedSegmentIndex = idx
-                        break
-                    }
-                    ++idx
-                }
-            }
+
+        if let value = rowDescriptor.value,
+           let options = rowDescriptor.configuration.options,
+           let idx = find(options, value) {
+            segmentedControl.selectedSegmentIndex = idx
         }
     }
     
@@ -68,8 +61,7 @@ public class FormSegmentedControlCell: FormBaseCell {
     }
     
     public override func defaultVisualConstraints() -> [String] {
-        
-        if titleLabel.text != nil && count(titleLabel.text!) > 0 {
+        if let text = titleLabel.text where !text.isEmpty {
             return ["H:|-16-[titleLabel]-16-[segmentedControl]-16-|"]
         }
         else {
@@ -80,8 +72,8 @@ public class FormSegmentedControlCell: FormBaseCell {
     /// MARK: Actions
     
     internal func valueChanged(sender: UISegmentedControl) {
-        let options = rowDescriptor.configuration[FormRowDescriptor.Configuration.Options] as? NSArray
-        let optionValue = options?[sender.selectedSegmentIndex] as? NSObject
+        let options = rowDescriptor.configuration.options
+        let optionValue = options?[sender.selectedSegmentIndex]
         rowDescriptor.value = optionValue
     }
     
@@ -89,11 +81,9 @@ public class FormSegmentedControlCell: FormBaseCell {
     
     private func updateSegmentedControl() {
         segmentedControl.removeAllSegments()
-        var idx = 0
-        if let options = rowDescriptor.configuration[FormRowDescriptor.Configuration.Options] as? NSArray {
-            for optionValue in options {
-                segmentedControl.insertSegmentWithTitle(rowDescriptor.titleForOptionValue(optionValue as! NSObject), atIndex: idx, animated: false)
-                ++idx
+        if let options = rowDescriptor.configuration.options {
+            for (idx, optionValue) in enumerate(options) {
+                segmentedControl.insertSegmentWithTitle(rowDescriptor.titleForOptionValue(optionValue), atIndex: idx, animated: false)
             }
         }
     }

@@ -3,6 +3,12 @@
 [![License](https://img.shields.io/badge/license-MIT-gray.svg)](http://cocoadocs.org/docsets/SwiftForms)
 [![Platform](https://img.shields.io/badge/platform-iOS-lightgrey.svg)](http://cocoadocs.org/docsets/SwiftForms)
 
+* * *
+
+This is a fork of `SwiftForms` that aims to leverage more of the type safety of Swift. Rather than using a Dictionary of `[NSObject : Any]` for configuration of `FormRowDescriptor`, a statically typed struct is used. This change eliminates a significant amount of type coercing, simplifies code and allows the type checker to guarantee type correctness.
+
+* * *
+
 SwiftForms
 ==========
 
@@ -28,7 +34,7 @@ form.title = "Example form"
 // Define first section
 let section1 = FormSectionDescriptor()
 
-var row: FormRowDescriptor! = FormRowDescriptor(tag: "name", rowType: .Email, title: "Email")
+var row = FormRowDescriptor(tag: Static.emailTag, rowType: .Email, title: "Email")
 section1.addRow(row)
 
 row = FormRowDescriptor(tag: "pass", rowType: .Password, title: "Password")
@@ -54,7 +60,7 @@ Every row descriptor has a `configuration` dictionary that allows to customize c
 Here's an example:
 
 ```swift
-row.configuration[FormRowDescriptor.Configuration.CellConfiguration] = ["titleLabel.font" : UIFont.boldSystemFontOfSize(30.0), "segmentedControl.tintColor" : UIColor.redColor()]
+row.configuration.cellConfiguration = ["titleLabel.font" : UIFont.boldSystemFontOfSize(30.0), "segmentedControl.tintColor" : UIColor.redColor()]
 ```
 
 Custom cells
@@ -86,7 +92,7 @@ Custom selector controllers
 
 In order to customize selector controller your class should conform to `FormSelector` protocol. That way you'll have access to the cell instance that pushed the controller, being able to alter its properties or setting it's row value accordingly to user interaction. 
 
-After defining your class, don't forget to set `FormRowType.Configuration.SelectorControllerClass` value in the configuration dictionary to use your custom selector controller.
+After defining your class, don't forget to set `selectorControllerClass` value in the `configuration` struct to use your custom selector controller.
 
 Requirements
 ---------------------
@@ -140,4 +146,3 @@ If you are using SwiftForms in your project and have any suggestion or question:
 Miguel Angel Ortuño, <ortuman@gmail.com>
 
 [@ortuman](http://twitter.com/ortuman)
-

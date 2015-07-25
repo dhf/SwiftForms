@@ -6,18 +6,13 @@
 //  Copyright (c) 2014 Miguel Angel Ortuño. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 public class FormSectionDescriptor: NSObject {
-
-    /// MARK: Properties
     
-    public var headerTitle: String!
-    public var footerTitle: String!
-    
+    public var headerTitle = ""
+    public var footerTitle = ""
     public var rows: [FormRowDescriptor] = []
-    
-    /// MARK: Public interface
     
     public func addRow(row: FormRowDescriptor) {
         rows.append(row)

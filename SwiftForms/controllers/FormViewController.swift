@@ -19,47 +19,24 @@ public class FormViewController : UITableViewController {
     
     /// MARK: Properties
     
-    public var form: FormDescriptor!
+    public var form = FormDescriptor()
     
     /// MARK: Init
     
-    public convenience init() {
-        self.init(style: .Grouped)
-    }
-    
-    public convenience init(form: FormDescriptor) {
-        self.init()
-        self.form = form
-    }
-    
-    public override init(style: UITableViewStyle) {
-        super.init(style: style)
-    }
-    
-    public override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        baseInit()
-    }
-    
-    public required init(coder aDecoder: NSCoder) {
+    required public init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        baseInit()
-    }
-    
-    private func baseInit() {
     }
     
     /// MARK: View life cycle
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        assert(form != nil, "self.form property MUST be assigned!")
         navigationItem.title = form.title
     }
     
     /// MARK: Public interface
     
-    public func valueForTag(tag: String) -> NSObject! {
+    public func valueForTag(tag: String) -> AnyObject? {
         for section in form.sections {
             for row in section.rows {
                 if row.tag == tag {
@@ -70,29 +47,18 @@ public class FormViewController : UITableViewController {
         return nil
     }
     
-    public func setValue(value: NSObject, forTag tag: String) {
-        
-        var sectionIndex = 0
-        var rowIndex = 0
-        
-        for section in form.sections {
-            for row in section.rows {
-                if row.tag == tag {
-                    row.value = value
-                    if let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowIndex, inSection: sectionIndex)) as? FormBaseCell {
-                        cell.update()
-                    }
-                    return
-                }
-                ++rowIndex
+    func setValue(value: NSObject, forTag tag: String) {
+        for (sectionIndex, section) in enumerate(form.sections) {
+            if let rowIndex = find(section.rows.map { $0.tag }, tag),
+                let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowIndex, inSection: sectionIndex)) as? FormBaseCell {
+                    section.rows[rowIndex].value = value
+                    cell.update()
             }
-            ++sectionIndex
-            rowIndex = 0
         }
     }
-    
+
     /// MARK: UITableViewDataSource
-    
+  
     public override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return form.sections.count
     }
@@ -111,7 +77,6 @@ public class FormViewController : UITableViewController {
         
         var cell: FormBaseCell? = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier) as? FormBaseCell
         if cell == nil {
-            
             cell = formBaseCellClass(style: .Default, reuseIdentifier: reuseIdentifier)
             cell?.formViewController = self
             cell?.configure()
@@ -120,9 +85,9 @@ public class FormViewController : UITableViewController {
         cell?.rowDescriptor = rowDescriptor
         
         // apply cell custom design
-        if let cellConfiguration = rowDescriptor.configuration[FormRowDescriptor.Configuration.CellConfiguration] as? NSDictionary {
+        if let cellConfiguration = rowDescriptor.configuration.cellConfiguration {
             for (keyPath, value) in cellConfiguration {
-                cell?.setValue(value, forKeyPath: keyPath as! String)
+                cell?.setValue(value, forKeyPath: keyPath)
             }
         }
         return cell!
@@ -139,26 +104,19 @@ public class FormViewController : UITableViewController {
     /// MARK: UITableViewDelegate
     
     public override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-
         let rowDescriptor = formRowDescriptorAtIndexPath(indexPath)
-        
-        if let formBaseCellClass = formBaseCellClassFromRowDescriptor(rowDescriptor) {
-            return formBaseCellClass.formRowCellHeight()
-        }
-        return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
+        return formBaseCellClassFromRowDescriptor(rowDescriptor).formRowCellHeight()
     }
     
     public override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-
         let rowDescriptor = formRowDescriptorAtIndexPath(indexPath)
         
         if let selectedRow = tableView.cellForRowAtIndexPath(indexPath) as? FormBaseCell {
-            if let formBaseCellClass = formBaseCellClassFromRowDescriptor(rowDescriptor) {
-                formBaseCellClass.formViewController(self, didSelectRow: selectedRow)
-            }
+            let formBaseCellClass = formBaseCellClassFromRowDescriptor(rowDescriptor)
+            formBaseCellClass.formViewController(self, didSelectRow: selectedRow)
         }
         
-        if let didSelectClosure = rowDescriptor.configuration[FormRowDescriptor.Configuration.DidSelectClosure] as? DidSelectClosure {
+        if let didSelectClosure = rowDescriptor.configuration.didSelectClosure {
             didSelectClosure()
         }
         
@@ -201,18 +159,14 @@ public class FormViewController : UITableViewController {
         return rowDescriptor
     }
     
-    private func formBaseCellClassFromRowDescriptor(rowDescriptor: FormRowDescriptor) -> FormBaseCell.Type! {
+    private func formBaseCellClassFromRowDescriptor(rowDescriptor: FormRowDescriptor) -> FormBaseCell.Type {
+        let formBaseCellClass: FormBaseCell.Type
         
-        var formBaseCellClass: FormBaseCell.Type!
-        
-        if let cellClass: AnyClass = rowDescriptor.configuration[FormRowDescriptor.Configuration.CellClass] as? AnyClass {
-            formBaseCellClass = cellClass as? FormBaseCell.Type
-        }
-        else {
+        if let cellClass = rowDescriptor.configuration.cellClass {
+            formBaseCellClass = cellClass
+        } else {
             formBaseCellClass = FormViewController.defaultCellClassForRowType(rowDescriptor.rowType)
         }
-        
-        assert(formBaseCellClass != nil, "FormRowDescriptor.Configuration.CellClass must be a FormBaseCell derived class value.")
         
         return formBaseCellClass
     }
