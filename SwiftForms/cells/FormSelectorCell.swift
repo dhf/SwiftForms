@@ -19,20 +19,11 @@ public class FormSelectorCell: FormValueCell {
         
         var title = ""
         
-        if let selectedValues = rowDescriptor.value as? NSArray { // multiple values
-            
-            let indexedSelectedValues = NSSet(array: selectedValues as [AnyObject])
-            
-            if let options = rowDescriptor.configuration.options {
-                for optionValue in options {
-                    if indexedSelectedValues.containsObject(optionValue) {
-                        let optionTitle = rowDescriptor.titleForOptionValue(optionValue)
-                        title = title + ", \(optionTitle)"
-                    }
-                }
-            }
-        }
-        else if let selectedValue = rowDescriptor.value { // single value
+        if let selectedValues = rowDescriptor.value as? [NSObject], // multiple values
+           let options = rowDescriptor.configuration.options {
+               let strs = options.filter { selectedValues.contains($0) }.map { rowDescriptor.titleForOptionValue($0) }
+               title = join(", ", strs)
+        } else if let selectedValue = rowDescriptor.value { // single value
             title = rowDescriptor.titleForOptionValue(selectedValue)
         }
         
@@ -54,7 +45,7 @@ public class FormSelectorCell: FormValueCell {
             let selectorController: UIViewController
 
             if let selectorControllerClass = row.rowDescriptor.configuration.selectorControllerClass as? UIViewController.Type {
-                selectorController = selectorControllerClass()
+                selectorController = selectorControllerClass.init()
             }
             else { // fallback to default cell class
                 selectorController = FormOptionsSelectorController()

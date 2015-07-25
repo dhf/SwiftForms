@@ -36,7 +36,7 @@ public class FormPickerCell: FormValueCell, UIPickerViewDelegate, UIPickerViewDa
         if let value = rowDescriptor.value {
             valueLabel.text = rowDescriptor.titleForOptionValue(value)
             if let options = rowDescriptor.configuration.options,
-               let index = find(options, value) {
+               let index = options.indexOf(value) {
                 picker.selectRow(index, inComponent: 0, animated: false)
             }
         }
@@ -56,7 +56,7 @@ public class FormPickerCell: FormValueCell, UIPickerViewDelegate, UIPickerViewDa
 
     /// MARK: UIPickerViewDelegate
     
-    public func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String {
+    public func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return rowDescriptor.titleForOptionAtIndex(row)
     }
     

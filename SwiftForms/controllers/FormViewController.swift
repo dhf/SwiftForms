@@ -23,7 +23,7 @@ public class FormViewController : UITableViewController {
     
     /// MARK: Init
     
-    required public init(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -48,9 +48,9 @@ public class FormViewController : UITableViewController {
     }
     
     func setValue(value: NSObject, forTag tag: String) {
-        for (sectionIndex, section) in enumerate(form.sections) {
-            if let rowIndex = find(section.rows.map { $0.tag }, tag),
-                let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowIndex, inSection: sectionIndex)) as? FormBaseCell {
+        for (sectionIndex, section) in form.sections.enumerate() {
+            if let rowIndex = (section.rows.map { $0.tag }).indexOf(tag),
+               let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowIndex, inSection: sectionIndex)) as? FormBaseCell {
                     section.rows[rowIndex].value = value
                     cell.update()
             }
@@ -71,13 +71,13 @@ public class FormViewController : UITableViewController {
         
         let rowDescriptor = formRowDescriptorAtIndexPath(indexPath)
         
-        var formBaseCellClass = formBaseCellClassFromRowDescriptor(rowDescriptor)
+        let formBaseCellClass = formBaseCellClassFromRowDescriptor(rowDescriptor)
         
         let reuseIdentifier = NSStringFromClass(formBaseCellClass)
         
         var cell: FormBaseCell? = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier) as? FormBaseCell
         if cell == nil {
-            cell = formBaseCellClass(style: .Default, reuseIdentifier: reuseIdentifier)
+            cell = formBaseCellClass.init(style: .Default, reuseIdentifier: reuseIdentifier)
             cell?.formViewController = self
             cell?.configure()
         }

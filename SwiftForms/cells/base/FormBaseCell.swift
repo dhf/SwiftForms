@@ -20,7 +20,7 @@ public class FormBaseCell: UITableViewCell {
     
     public weak var formViewController: FormViewController!
     
-    private var customConstraints: [AnyObject] = []
+    private var customConstraints: [NSLayoutConstraint] = []
     
     /// MARK: Init
     
@@ -28,7 +28,7 @@ public class FormBaseCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
 
-    public required init(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -103,7 +103,7 @@ public class FormBaseCell: UITableViewCell {
         }
         
         for visualConstraint in visualConstraints {
-            let constraints = NSLayoutConstraint.constraintsWithVisualFormat(visualConstraint, options: NSLayoutFormatOptions(0), metrics: nil, views: views)
+            let constraints = NSLayoutConstraint.constraintsWithVisualFormat(visualConstraint, options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views)
             for constraint in constraints {
                 customConstraints.append(constraint)
             }

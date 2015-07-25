@@ -26,8 +26,8 @@ public class FormValueCell: FormBaseCell {
         
         accessoryType = .DisclosureIndicator
         
-        titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        valueLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        valueLabel.translatesAutoresizingMaskIntoConstraints = false
         
         titleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
         valueLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)

@@ -26,8 +26,8 @@ public class FormSegmentedControlCell: FormBaseCell {
         
         selectionStyle = .None
         
-        titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        segmentedControl.setTranslatesAutoresizingMaskIntoConstraints(false)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         
         titleLabel.setContentCompressionResistancePriority(500, forAxis: .Horizontal)
         segmentedControl.setContentCompressionResistancePriority(500, forAxis: .Horizontal)
@@ -51,7 +51,7 @@ public class FormSegmentedControlCell: FormBaseCell {
 
         if let value = rowDescriptor.value,
            let options = rowDescriptor.configuration.options,
-           let idx = find(options, value) {
+           let idx = options.indexOf(value) {
             segmentedControl.selectedSegmentIndex = idx
         }
     }
@@ -82,7 +82,7 @@ public class FormSegmentedControlCell: FormBaseCell {
     private func updateSegmentedControl() {
         segmentedControl.removeAllSegments()
         if let options = rowDescriptor.configuration.options {
-            for (idx, optionValue) in enumerate(options) {
+            for (idx, optionValue) in options.enumerate() {
                 segmentedControl.insertSegmentWithTitle(rowDescriptor.titleForOptionValue(optionValue), atIndex: idx, animated: false)
             }
         }
