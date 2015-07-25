@@ -22,30 +22,24 @@ public class FormCheckCell: FormTitleCell {
         super.update()
         
         titleLabel.text = rowDescriptor.title
-        
-        if rowDescriptor.value == nil {
-            rowDescriptor.value = false
+
+        if let checkMk = rowDescriptor.value as? Bool where checkMk == true {
+            accessoryType = .Checkmark
+        } else {
+            accessoryType = .None
         }
-        
-        accessoryType = (rowDescriptor.value as! Bool) ? .Checkmark : .None
     }
     
     public override class func formViewController(formViewController: FormViewController, didSelectRow selectedRow: FormBaseCell) {
-        
         if let row = selectedRow as? FormCheckCell {
             row.check()
         }
     }
     
     /// MARK: Private interface
-    
+
     private func check() {
-        if rowDescriptor.value != nil {
-            rowDescriptor.value = !(rowDescriptor.value as! Bool)
-        }
-        else {
-            rowDescriptor.value = true
-        }
+        rowDescriptor.value = maybe(defaultValue: true, (rowDescriptor.value as? Bool)) { !$0 }
         accessoryType = (rowDescriptor.value as! Bool) ? .Checkmark : .None
     }
 }

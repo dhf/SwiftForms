@@ -17,7 +17,7 @@ public class FormTextViewCell : FormBaseCell, UITextViewDelegate {
     
     /// MARK: Properties
     
-    private var customConstraints: [AnyObject]!
+    private var customConstraints: [AnyObject] = []
     
     /// MARK: Class Funcs
     public override class func formRowCellHeight() -> CGFloat {
@@ -63,30 +63,22 @@ public class FormTextViewCell : FormBaseCell, UITextViewDelegate {
     
     public override func constraintsViews() -> [String : UIView] {
         var views = ["titleLabel" : titleLabel, "textField" : textField]
-        if self.imageView!.image != nil {
+        if let _ = imageView?.image {
             views["imageView"] = imageView
         }
         return views
     }
     
     public override func defaultVisualConstraints() -> [String] {
-        
-        if self.imageView!.image != nil {
-            
-            if titleLabel.text != nil && count(titleLabel.text!) > 0 {
-                return ["H:[imageView]-[titleLabel]-[textField]-16-|"]
-            }
-            else {
-                return ["H:[imageView]-[textField]-16-|"]
-            }
-        }
-        else {
-            if titleLabel.text != nil && count(titleLabel.text!) > 0 {
-                return ["H:|-16-[titleLabel]-[textField]-16-|"]
-            }
-            else {
-                return ["H:|-16-[textField]-16-|"]
-            }
+        switch (self.imageView?.image, self.titleLabel.text) {
+        case (.Some, .Some(let t)) where !t.isEmpty:
+            return ["H:[imageView]-[titleLabel]-[textField]-16-|"]
+        case (.Some, .None):
+            return ["H:[imageView]-[textField]-16-|"]
+        case (.None, .Some(let t)) where !t.isEmpty:
+            return ["H:|-16-[titleLabel]-[textField]-16-|"]
+        default:
+            return ["H:|-16-[textField]-16-|"]
         }
     }
     

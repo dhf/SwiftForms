@@ -29,10 +29,9 @@ public class FormDateCell: FormValueCell {
     public override func update() {
         super.update()
         
-        if let showsInputToolbar = rowDescriptor.configuration[FormRowDescriptor.Configuration.ShowsInputToolbar] as? Bool {
-            if showsInputToolbar && hiddenTextField.inputAccessoryView == nil {
+        if let showToolbar = rowDescriptor.configuration.showsInputToolbar
+            where hiddenTextField.inputAccessoryView == .None && showToolbar == true {
                 hiddenTextField.inputAccessoryView = inputAccesoryView()
-            }
         }
         
         titleLabel.text = rowDescriptor.title
@@ -52,16 +51,15 @@ public class FormDateCell: FormValueCell {
             defaultDateFormatter.timeStyle = .ShortStyle
         }
         
-        if rowDescriptor.value != nil {
-            let date = rowDescriptor.value as? NSDate
-            datePicker.date = date!
-            valueLabel.text = self.getDateFormatter().stringFromDate(date!)
+        if let date = rowDescriptor.value as? NSDate {
+            datePicker.date = date
+            valueLabel.text = self.getDateFormatter().stringFromDate(date)
         }
     }
     
     public override class func formViewController(formViewController: FormViewController, didSelectRow selectedRow: FormBaseCell) {
         
-        let row: FormDateCell! = selectedRow as? FormDateCell
+        let row: FormDateCell = selectedRow as! FormDateCell
         
         if row.rowDescriptor.value == nil {
             let date = NSDate()
@@ -92,10 +90,6 @@ public class FormDateCell: FormValueCell {
     /// MARK: Private interface
     
     private func getDateFormatter() -> NSDateFormatter {
-        
-        if let dateFormatter = self.rowDescriptor.configuration[FormRowDescriptor.Configuration.DateFormatter] as? NSDateFormatter {
-            return dateFormatter
-        }
-        return defaultDateFormatter
+        return maybe(defaultValue: defaultDateFormatter, rowDescriptor.configuration.dateFormatter) { $0 }
     }
 }

@@ -9,7 +9,7 @@
 import UIKit
 
 public class FormSwitchCell: FormTitleCell {
-
+    
     /// MARK: Cell views
     
     public let switchView = UISwitch()
@@ -30,10 +30,9 @@ public class FormSwitchCell: FormTitleCell {
         
         titleLabel.text = rowDescriptor.title
         
-        if rowDescriptor.value != nil {
-            switchView.on = rowDescriptor.value as! Bool
-        }
-        else {
+        if let onOff = rowDescriptor.value as? Bool {
+            switchView.on = onOff
+        } else {
             switchView.on = false
             rowDescriptor.value = false
         }
@@ -43,7 +42,7 @@ public class FormSwitchCell: FormTitleCell {
     
     internal func valueChanged(_: UISwitch) {
         if switchView.on != rowDescriptor.value {
-            rowDescriptor.value = switchView.on as Bool
+            rowDescriptor.value = switchView.on
         }
     }
 }

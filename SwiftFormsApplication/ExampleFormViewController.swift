@@ -1,4 +1,4 @@
-//
+
 //  ExampleFormViewController.swift
 //  SwiftForms
 //
@@ -62,36 +62,36 @@ class ExampleFormViewController: FormViewController {
         
         let section1 = FormSectionDescriptor()
         
-        var row: FormRowDescriptor! = FormRowDescriptor(tag: Static.emailTag, rowType: .Email, title: "Email")
-        row.configuration[FormRowDescriptor.Configuration.CellConfiguration] = ["textField.placeholder" : "john@gmail.com", "textField.textAlignment" : NSTextAlignment.Right.rawValue]
+        var row = FormRowDescriptor(tag: Static.emailTag, rowType: .Email, title: "Email")
+        row.configuration.cellConfiguration = ["textField.placeholder" : "john@gmail.com", "textField.textAlignment" : NSTextAlignment.Right.rawValue]
         section1.addRow(row)
 
         row = FormRowDescriptor(tag: Static.passwordTag, rowType: .Password, title: "Password")
-        row.configuration[FormRowDescriptor.Configuration.CellConfiguration] = ["textField.placeholder" : "Enter password", "textField.textAlignment" : NSTextAlignment.Right.rawValue]
+        row.configuration.cellConfiguration = ["textField.placeholder" : "Enter password", "textField.textAlignment" : NSTextAlignment.Right.rawValue]
         section1.addRow(row)
         
         let section2 = FormSectionDescriptor()
         
         row = FormRowDescriptor(tag: Static.nameTag, rowType: .Name, title: "First Name")
-        row.configuration[FormRowDescriptor.Configuration.CellConfiguration] = ["textField.placeholder" : "e.g. Miguel Ángel", "textField.textAlignment" : NSTextAlignment.Right.rawValue]
+        row.configuration.cellConfiguration = ["textField.placeholder" : "e.g. Miguel Ángel", "textField.textAlignment" : NSTextAlignment.Right.rawValue]
         section2.addRow(row)
         
         row = FormRowDescriptor(tag: Static.lastNameTag, rowType: .Name, title: "Last Name")
-        row.configuration[FormRowDescriptor.Configuration.CellConfiguration] = ["textField.placeholder" : "e.g. Ortuño", "textField.textAlignment" : NSTextAlignment.Right.rawValue]
+        row.configuration.cellConfiguration = ["textField.placeholder" : "e.g. Ortuño", "textField.textAlignment" : NSTextAlignment.Right.rawValue]
         section2.addRow(row)
         
         row = FormRowDescriptor(tag: Static.jobTag, rowType: .Text, title: "Job")
-        row.configuration[FormRowDescriptor.Configuration.CellConfiguration] = ["textField.placeholder" : "e.g. Entrepreneur", "textField.textAlignment" : NSTextAlignment.Right.rawValue]
+        row.configuration.cellConfiguration = ["textField.placeholder" : "e.g. Entrepreneur", "textField.textAlignment" : NSTextAlignment.Right.rawValue]
         section2.addRow(row)
         
         let section3 = FormSectionDescriptor()
 
         row = FormRowDescriptor(tag: Static.URLTag, rowType: .URL, title: "URL")
-        row.configuration[FormRowDescriptor.Configuration.CellConfiguration] = ["textField.placeholder" : "e.g. gethooksapp.com", "textField.textAlignment" : NSTextAlignment.Right.rawValue]
+        row.configuration.cellConfiguration = ["textField.placeholder" : "e.g. gethooksapp.com", "textField.textAlignment" : NSTextAlignment.Right.rawValue]
         section3.addRow(row)
         
         row = FormRowDescriptor(tag: Static.phoneTag, rowType: .Phone, title: "Phone")
-        row.configuration[FormRowDescriptor.Configuration.CellConfiguration] = ["textField.placeholder" : "e.g. 0034666777999", "textField.textAlignment" : NSTextAlignment.Right.rawValue]
+        row.configuration.cellConfiguration = ["textField.placeholder" : "e.g. 0034666777999", "textField.textAlignment" : NSTextAlignment.Right.rawValue]
         section3.addRow(row)
         
         let section4 = FormSectionDescriptor()
@@ -103,23 +103,18 @@ class ExampleFormViewController: FormViewController {
         section4.addRow(row)
         
         row = FormRowDescriptor(tag: Static.segmented, rowType: .SegmentedControl, title: "Priority")
-        row.configuration[FormRowDescriptor.Configuration.Options] = [0, 1, 2, 3]
-        row.configuration[FormRowDescriptor.Configuration.TitleFormatterClosure] = { value in
+        row.configuration.options = [0, 1, 2, 3]
+        row.configuration.titleFormatterClosure = { value in
             switch( value ) {
-            case 0:
-                return "None"
-            case 1:
-                return "!"
-            case 2:
-                return "!!"
-            case 3:
-                return "!!!"
-            default:
-                return nil
+            case 0: return "None"
+            case 1: return "!"
+            case 2: return "!!"
+            case 3: return "!!!"
+            default: return "Wat!!!"
             }
-        } as TitleFormatterClosure
+        }
         
-        row.configuration[FormRowDescriptor.Configuration.CellConfiguration] = ["titleLabel.font" : UIFont.boldSystemFontOfSize(30.0), "segmentedControl.tintColor" : UIColor.redColor()]
+        row.configuration.cellConfiguration = ["titleLabel.font" : UIFont.boldSystemFontOfSize(30.0), "segmentedControl.tintColor" : UIColor.redColor()]
         
         section4.addRow(row)
         
@@ -129,19 +124,15 @@ class ExampleFormViewController: FormViewController {
         let section5 = FormSectionDescriptor()
         
         row = FormRowDescriptor(tag: Static.picker, rowType: .Picker, title: "Gender")
-        row.configuration[FormRowDescriptor.Configuration.Options] = ["F", "M", "U"]
-        row.configuration[FormRowDescriptor.Configuration.TitleFormatterClosure] = { value in
+        row.configuration.options = ["F", "M", "U"]
+        row.configuration.titleFormatterClosure = { value in
             switch( value ) {
-            case "F":
-                return "Female"
-            case "M":
-                return "Male"
-            case "U":
-                return "I'd rather not to say"
-            default:
-                return nil
+            case "F": return "Female"
+            case "M": return "Male"
+            case "U": return "I'd rather not to say"
+            default: return "Wat!!!"
             }
-        } as TitleFormatterClosure
+        }
         
         row.value = "M"
         
@@ -150,24 +141,18 @@ class ExampleFormViewController: FormViewController {
         row = FormRowDescriptor(tag: Static.birthday, rowType: .Date, title: "Birthday")
         section5.addRow(row)
         row = FormRowDescriptor(tag: Static.categories, rowType: .MultipleSelector, title: "Categories")
-        row.configuration[FormRowDescriptor.Configuration.Options] = [0, 1, 2, 3, 4]
-        row.configuration[FormRowDescriptor.Configuration.AllowsMultipleSelection] = true
-        row.configuration[FormRowDescriptor.Configuration.TitleFormatterClosure] = { value in
+        row.configuration.options = [0, 1, 2, 3, 4]
+        row.configuration.allowsMultipleSelection = true
+        row.configuration.titleFormatterClosure = { value in
             switch( value ) {
-            case 0:
-                return "Restaurant"
-            case 1:
-                return "Pub"
-            case 2:
-                return "Shop"
-            case 3:
-                return "Hotel"
-            case 4:
-                return "Camping"
-            default:
-                return nil
+            case 0: return "Restaurant"
+            case 1: return "Pub"
+            case 2: return "Shop"
+            case 3: return "Hotel"
+            case 4: return "Camping"
+            default: return "Wat!!!"
             }
-        } as TitleFormatterClosure
+        }
         
         section5.addRow(row)
         
@@ -175,9 +160,9 @@ class ExampleFormViewController: FormViewController {
         section6.headerTitle = "Stepper & Slider"
         
         row = FormRowDescriptor(tag: Static.stepper, rowType: .Stepper, title: "Step count")
-        row.configuration[FormRowDescriptor.Configuration.MaximumValue] = 200.0
-        row.configuration[FormRowDescriptor.Configuration.MinimumValue] = 20.0
-        row.configuration[FormRowDescriptor.Configuration.Steps] = 2.0
+        row.configuration.maximumValue = 200.0
+        row.configuration.minimumValue = 20.0
+        row.configuration.steps = 2.0
         section6.addRow(row)
         
         row = FormRowDescriptor(tag: Static.slider, rowType: .Slider, title: "Slider")
@@ -192,9 +177,8 @@ class ExampleFormViewController: FormViewController {
         let section8 = FormSectionDescriptor()
         
         row = FormRowDescriptor(tag: Static.button, rowType: .Button, title: "Dismiss")
-        row.configuration[FormRowDescriptor.Configuration.DidSelectClosure] = {
-            self.view.endEditing(true)
-        } as DidSelectClosure
+        
+        row.configuration.didSelectClosure = { self.view.endEditing(true) }
         section8.addRow(row)
         
         form.sections = [section1, section2, section3, section4, section5, section6, section7, section8]
