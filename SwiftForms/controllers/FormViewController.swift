@@ -47,7 +47,7 @@ public class FormViewController : UITableViewController {
         return nil
     }
     
-    func setValue(value: NSObject, forTag tag: String) {
+    public func setValue(value: NSObject, forTag tag: String) {
         for (sectionIndex, section) in form.sections.enumerate() {
             if let rowIndex = (section.rows.map { $0.tag }).indexOf(tag),
                let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowIndex, inSection: sectionIndex)) as? FormBaseCell {
