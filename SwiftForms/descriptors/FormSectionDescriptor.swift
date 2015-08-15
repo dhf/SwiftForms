@@ -24,3 +24,8 @@ public class FormSectionDescriptor: NSObject {
         }
     }
 }
+
+func +(section: FormSectionDescriptor, row: FormRowDescriptor) -> FormSectionDescriptor {
+    section.addRow(row)
+    return section
+}
