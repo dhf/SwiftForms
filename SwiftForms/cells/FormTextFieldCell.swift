@@ -31,7 +31,8 @@ public class FormTextFieldCell: FormBaseCell {
 
         titleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
         textField.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-        
+        textField.textAlignment = .Right
+
         contentView.addSubview(titleLabel)
         contentView.addSubview(textField)
         
