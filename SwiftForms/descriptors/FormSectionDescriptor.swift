@@ -10,9 +10,14 @@ import Foundation
 
 public class FormSectionDescriptor: NSObject {
     
-    public var headerTitle = ""
-    public var footerTitle = ""
+    public var headerTitle: String
+    public var footerTitle: String
     public var rows: [FormRowDescriptor] = []
+    
+    public init(headerTitle: String = "", footerTitle: String = "") {
+        self.headerTitle = headerTitle
+        self.footerTitle = footerTitle
+    }
     
     public func addRow(row: FormRowDescriptor) {
         rows.append(row)
