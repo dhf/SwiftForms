@@ -153,7 +153,7 @@ public class FormViewController : UITableViewController {
         return Static.defaultCellClasses[rowType]!
     }
     
-    public func formRowDescriptorAtIndexPath(indexPath: NSIndexPath!) -> FormRowDescriptor {
+    public func formRowDescriptorAtIndexPath(indexPath: NSIndexPath) -> FormRowDescriptor {
         let section = form.sections[indexPath.section]
         let rowDescriptor = section.rows[indexPath.row]
         return rowDescriptor
