@@ -66,18 +66,17 @@ public class FormRowDescriptor: NSObject {
     
     /// MARK: Init
 
-    public init(tag: String, rowType: FormRowType, title: String, placeholder: String? = nil) {
+    public init(tag: String, rowType: FormRowType, title: String, value: NSObject? = .None, placeholder: String? = .None, options: [NSObject]? = .None) {
         configuration.required = true
         configuration.allowsMultipleSelection = false
         configuration.showsInputToolbar = false
-
+        configuration.placeholder = placeholder
+        configuration.options = options
+        
         self.tag = tag
         self.rowType = rowType
         self.title = title
-        
-        if let p = placeholder {
-            configuration.placeholder = p
-        }
+        self.value = value
     }
     
     /// MARK: Public interface
