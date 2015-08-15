@@ -61,42 +61,23 @@ class ExampleFormViewController: FormViewController {
         form.title = "Example Form"
         
         let section1 = FormSectionDescriptor()
-        
-        var row = FormRowDescriptor(tag: Static.emailTag, rowType: .Email, title: "Email")
-        row.configuration.cellConfiguration = ["textField.placeholder" : "john@gmail.com", "textField.textAlignment" : NSTextAlignment.Right.rawValue]
-        section1.addRow(row)
-
-        row = FormRowDescriptor(tag: Static.passwordTag, rowType: .Password, title: "Password")
-        row.configuration.cellConfiguration = ["textField.placeholder" : "Enter password", "textField.textAlignment" : NSTextAlignment.Right.rawValue]
-        section1.addRow(row)
+        + FormRowDescriptor(tag: Static.emailTag, rowType: .Email, title: "Email", placeholder: "john@gmail.com")
+        + FormRowDescriptor(tag: Static.passwordTag, rowType: .Password, title: "Password", placeholder: "Enter password")
         
         let section2 = FormSectionDescriptor()
-        
-        row = FormRowDescriptor(tag: Static.nameTag, rowType: .Name, title: "First Name")
-        row.configuration.cellConfiguration = ["textField.placeholder" : "e.g. Miguel Ángel", "textField.textAlignment" : NSTextAlignment.Right.rawValue]
-        section2.addRow(row)
-        
-        row = FormRowDescriptor(tag: Static.lastNameTag, rowType: .Name, title: "Last Name")
-        row.configuration.cellConfiguration = ["textField.placeholder" : "e.g. Ortuño", "textField.textAlignment" : NSTextAlignment.Right.rawValue]
-        section2.addRow(row)
-        
-        row = FormRowDescriptor(tag: Static.jobTag, rowType: .Text, title: "Job")
-        row.configuration.cellConfiguration = ["textField.placeholder" : "e.g. Entrepreneur", "textField.textAlignment" : NSTextAlignment.Right.rawValue]
-        section2.addRow(row)
+        + FormRowDescriptor(tag: Static.nameTag, rowType: .Name, title: "First Name", placeholder: "e.g. Miguel Ángel")
+        + FormRowDescriptor(tag: Static.lastNameTag, rowType: .Name, title: "Last Name", placeholder: "e.g. Ortuño")
+        + FormRowDescriptor(tag: Static.jobTag, rowType: .Text, title: "Job", placeholder: "e.g. Mycologist")
+
         
         let section3 = FormSectionDescriptor()
-
-        row = FormRowDescriptor(tag: Static.URLTag, rowType: .URL, title: "URL")
-        row.configuration.cellConfiguration = ["textField.placeholder" : "e.g. gethooksapp.com", "textField.textAlignment" : NSTextAlignment.Right.rawValue]
-        section3.addRow(row)
+        + FormRowDescriptor(tag: Static.URLTag, rowType: .URL, title: "URL", placeholder: "e.g. gethooksapp.com")
+        + FormRowDescriptor(tag: Static.phoneTag, rowType: .Phone, title: "Phone", placeholder: "e.g. 0034666777999")
         
-        row = FormRowDescriptor(tag: Static.phoneTag, rowType: .Phone, title: "Phone")
-        row.configuration.cellConfiguration = ["textField.placeholder" : "e.g. 0034666777999", "textField.textAlignment" : NSTextAlignment.Right.rawValue]
-        section3.addRow(row)
         
         let section4 = FormSectionDescriptor()
         
-        row = FormRowDescriptor(tag: Static.enabled, rowType: .BooleanSwitch, title: "Enable")
+        var row = FormRowDescriptor(tag: Static.enabled, rowType: .BooleanSwitch, title: "Enable")
         section4.addRow(row)
         
         row = FormRowDescriptor(tag: Static.check, rowType: .BooleanCheck, title: "Doable")
