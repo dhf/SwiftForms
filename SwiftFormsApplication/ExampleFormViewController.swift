@@ -114,8 +114,10 @@ class ExampleFormViewController: FormViewController {
             }
         }
         
-        row.configuration.cellConfiguration = ["titleLabel.font" : UIFont.boldSystemFontOfSize(30.0), "segmentedControl.tintColor" : UIColor.redColor()]
-        
+//        row.configuration.cellConfiguration = ["titleLabel.font" : UIFont.boldSystemFontOfSize(30.0), "segmentedControl.tintColor" : UIColor.redColor()]
+
+        row.configuration.cellConfiguration = ["segmentedControl.tintColor" : UIColor.redColor()]
+
         section4.addRow(row)
         
         section4.headerTitle = "An example header title"

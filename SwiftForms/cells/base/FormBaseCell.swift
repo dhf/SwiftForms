@@ -8,6 +8,24 @@
 
 import UIKit
 
+public protocol FormFontDefaults {
+    func titleLabelFont() -> UIFont
+    func valueLabelFont() -> UIFont
+    func textFieldFont() -> UIFont
+}
+
+public extension FormFontDefaults {
+    func titleLabelFont() -> UIFont {
+        return UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+    }
+    func valueLabelFont() -> UIFont {
+        return UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+    }
+    func textFieldFont() -> UIFont {
+        return UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+    }
+}
+
 public class FormBaseCell: UITableViewCell {
 
     /// MARK: Properties
@@ -92,24 +110,25 @@ public class FormBaseCell: UITableViewCell {
         NSLayoutConstraint.deactivateConstraints(customConstraints)
         customConstraints.removeAll()
 
+//        let visualConstraints: [String]
+//        
+//        if let visualConstraintsClosure = rowDescriptor.configuration.visualConstraintsClosure {
+//            visualConstraints = visualConstraintsClosure(self)
+//        }
+//        else {
+//            visualConstraints = self.defaultVisualConstraints()
+//        }
+        
+        let visualConstraints = maybe(defaultValue: self.defaultVisualConstraints(), rowDescriptor.configuration.visualConstraintsClosure) {
+            $0(self)
+        }
+        
         let views = constraintsViews()
-        let visualConstraints: [String]
-        
-        if let visualConstraintsClosure = rowDescriptor.configuration.visualConstraintsClosure {
-            visualConstraints = visualConstraintsClosure(self)
-        }
-        else {
-            visualConstraints = self.defaultVisualConstraints()
+        customConstraints = visualConstraints.flatMap { visualConstraint in
+            NSLayoutConstraint.constraintsWithVisualFormat(visualConstraint, options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views)
         }
         
-        for visualConstraint in visualConstraints {
-            let constraints = NSLayoutConstraint.constraintsWithVisualFormat(visualConstraint, options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views)
-            for constraint in constraints {
-                customConstraints.append(constraint)
-            }
-        }
-        
-        contentView.addConstraints(customConstraints)
+        NSLayoutConstraint.activateConstraints(customConstraints)
         super.updateConstraints()
     }
 }
