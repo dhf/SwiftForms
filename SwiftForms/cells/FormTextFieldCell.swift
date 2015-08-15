@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class FormTextFieldCell: FormBaseCell {
+public class FormTextFieldCell: FormBaseCell, FormFontDefaults {
 
     /// MARK: Cell views
     
@@ -29,8 +29,8 @@ public class FormTextFieldCell: FormBaseCell {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         textField.translatesAutoresizingMaskIntoConstraints = false
 
-        titleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-        textField.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+        titleLabel.font = titleLabelFont()
+        textField.font = textFieldFont()
         textField.textAlignment = .Right
 
         contentView.addSubview(titleLabel)

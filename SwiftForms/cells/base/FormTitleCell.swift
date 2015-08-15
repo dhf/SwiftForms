@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class FormTitleCell: FormBaseCell {
+public class FormTitleCell: FormBaseCell, FormFontDefaults {
 
     /// MARK: Cell views
     
@@ -20,7 +20,7 @@ public class FormTitleCell: FormBaseCell {
         super.configure()
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+        titleLabel.font = titleLabelFont()
         
         // apply constant constraints
         contentView.addSubview(titleLabel)

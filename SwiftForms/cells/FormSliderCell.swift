@@ -22,7 +22,7 @@ public class FormSliderCell: FormTitleCell {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         sliderView.translatesAutoresizingMaskIntoConstraints = false
         
-        titleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+//        titleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
         
         contentView.addSubview(titleLabel)
         contentView.addSubview(sliderView)

@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class FormValueCell: FormBaseCell {
+public class FormValueCell: FormBaseCell, FormFontDefaults {
     
     /// MARK: Cell views
     
@@ -29,8 +29,8 @@ public class FormValueCell: FormBaseCell {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         valueLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        titleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-        valueLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+        titleLabel.font = titleLabelFont()
+        valueLabel.font = valueLabelFont()
         
         valueLabel.textColor = UIColor.lightGrayColor()
         valueLabel.textAlignment = .Right
