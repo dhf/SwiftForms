@@ -19,6 +19,6 @@ func maybe<A,B>(@autoclosure defaultValue defaultValue:() -> B, _ opt:A?, @noesc
 
 func join(s: String, _ xs: [String]) -> String {
     return maybe(defaultValue: "", xs.first) {
-        dropFirst(xs).reduce($0) { acc, elem in "\(acc)\(s)\(elem)" }
+        xs.dropFirst().reduce($0) { acc, elem in "\(acc)\(s)\(elem)" }
     }
 }
