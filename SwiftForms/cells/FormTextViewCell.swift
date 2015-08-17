@@ -15,11 +15,8 @@ public class FormTextViewCell : FormBaseCell, FormFontDefaults, UITextViewDelega
     public let titleLabel = UILabel()
     public let textField = UITextView()
     
-    /// MARK: Properties
-    
-    private var customConstraints: [AnyObject] = []
-    
     /// MARK: Class Funcs
+    
     public override class func formRowCellHeight() -> CGFloat {
         return 110.0
     }

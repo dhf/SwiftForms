@@ -15,10 +15,6 @@ public class FormValueCell: FormBaseCell, FormFontDefaults {
     public let titleLabel = UILabel()
     public let valueLabel = UILabel()
     
-    /// MARK: Properties
-    
-    private var customConstraints: [AnyObject] = []
-    
     /// MARK: FormBaseCell
     
     public override func configure() {

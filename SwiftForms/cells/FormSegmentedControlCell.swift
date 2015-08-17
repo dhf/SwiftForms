@@ -21,10 +21,6 @@ public class FormSegmentedControlCell: FormBaseCell, FormFontDefaults {
     public let titleLabel = UILabel()
     public let segmentedControl = UISegmentedControl()
     
-    /// MARK: Properties
-    
-    private var customConstraints: [AnyObject]!
-    
     /// MARK: FormBaseCell
     
     public override func configure() {
