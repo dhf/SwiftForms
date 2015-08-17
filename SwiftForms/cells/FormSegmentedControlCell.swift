@@ -8,13 +8,7 @@
 
 import UIKit
 
-public extension FormSegmentedControlCell {
-    func titleLabelFont() -> UIFont {
-        return UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote)
-    }
-}
-
-public class FormSegmentedControlCell: FormBaseCell, FormFontDefaults {
+public class FormSegmentedControlCell: FormBaseCell {
     
     /// MARK: Cell views
     
@@ -34,7 +28,7 @@ public class FormSegmentedControlCell: FormBaseCell, FormFontDefaults {
         titleLabel.setContentCompressionResistancePriority(500, forAxis: .Horizontal)
         segmentedControl.setContentCompressionResistancePriority(500, forAxis: .Horizontal)
         
-        titleLabel.font = titleLabelFont()
+        titleLabel.font = titleLabelFont
         
         contentView.addSubview(titleLabel)
         contentView.addSubview(segmentedControl)

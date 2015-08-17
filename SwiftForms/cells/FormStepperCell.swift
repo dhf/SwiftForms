@@ -23,8 +23,6 @@ public class FormStepperCell: FormTitleCell {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         stepperView.translatesAutoresizingMaskIntoConstraints = false
         countLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-//        titleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
         countLabel.textAlignment = .Right
         
         contentView.addSubview(titleLabel)

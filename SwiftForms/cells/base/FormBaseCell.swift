@@ -8,25 +8,7 @@
 
 import UIKit
 
-public protocol FormFontDefaults {
-    func titleLabelFont() -> UIFont
-    func valueLabelFont() -> UIFont
-    func textFieldFont() -> UIFont
-}
-
-public extension FormFontDefaults {
-    func titleLabelFont() -> UIFont {
-        return UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-    }
-    func valueLabelFont() -> UIFont {
-        return UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-    }
-    func textFieldFont() -> UIFont {
-        return UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-    }
-}
-
-public class FormBaseCell: UITableViewCell {
+public class FormBaseCell: UITableViewCell, FormFontDefaults {
 
     /// MARK: Properties
     
