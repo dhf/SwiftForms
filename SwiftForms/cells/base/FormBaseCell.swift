@@ -110,18 +110,7 @@ public class FormBaseCell: UITableViewCell {
         NSLayoutConstraint.deactivateConstraints(customConstraints)
         customConstraints.removeAll()
 
-//        let visualConstraints: [String]
-//        
-//        if let visualConstraintsClosure = rowDescriptor.configuration.visualConstraintsClosure {
-//            visualConstraints = visualConstraintsClosure(self)
-//        }
-//        else {
-//            visualConstraints = self.defaultVisualConstraints()
-//        }
-        
-        let visualConstraints = maybe(defaultValue: self.defaultVisualConstraints(), rowDescriptor.configuration.visualConstraintsClosure) {
-            $0(self)
-        }
+        let visualConstraints = rowDescriptor.configuration.visualConstraintsClosure.map { $0(self) } ?? defaultVisualConstraints()
         
         let views = constraintsViews()
         customConstraints = visualConstraints.flatMap { visualConstraint in
