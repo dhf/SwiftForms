@@ -22,7 +22,7 @@ public class FormSelectorCell: FormValueCell {
         if let selectedValues = rowDescriptor.value as? [NSObject], // multiple values
            let options = rowDescriptor.configuration.options {
                let strs = options.filter { selectedValues.contains($0) }.map { rowDescriptor.titleForOptionValue($0) }
-               title = join(", ", strs)
+               title = strs.join(", ")
         } else if let selectedValue = rowDescriptor.value { // single value
             title = rowDescriptor.titleForOptionValue(selectedValue)
         }

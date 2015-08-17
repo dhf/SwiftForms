@@ -74,6 +74,6 @@ public class FormPickerCell: FormValueCell, UIPickerViewDelegate, UIPickerViewDa
     }
     
     public func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return maybe(defaultValue: 0, rowDescriptor.configuration.options?.count) { $0 }
+        return rowDescriptor.configuration.options?.count ?? 0
     }
 }

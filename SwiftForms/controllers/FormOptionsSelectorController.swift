@@ -40,7 +40,7 @@ public class FormOptionsSelectorController: UITableViewController, FormSelector 
     }
 
     public override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {        
-        return maybe(defaultValue: 0, formCell.rowDescriptor.configuration.options?.count) { $0 }
+        return formCell.rowDescriptor.configuration.options?.count ?? 0
     }
     
     public override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
