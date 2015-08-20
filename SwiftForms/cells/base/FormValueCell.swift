@@ -15,18 +15,21 @@ public class FormValueCell: FormBaseCell {
     public let titleLabel = UILabel()
     public let valueLabel = UILabel()
     
-    /// MARK: FormBaseCell
-    
-    public override func configure() {
-        super.configure()
+    public required init(style: UITableViewCellStyle, reuseIdentifier: String!) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         accessoryType = .DisclosureIndicator
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         valueLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        titleLabel.font = titleLabelFont
-        valueLabel.font = valueLabelFont
+        if let fontDefault = self as? FormFontDefaults {
+            titleLabel.font = fontDefault.titleLabelFont
+            valueLabel.font = fontDefault.valueLabelFont
+        } else {
+            titleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+            valueLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+        }
         
         valueLabel.textColor = UIColor.lightGrayColor()
         valueLabel.textAlignment = .Right
@@ -59,5 +62,10 @@ public class FormValueCell: FormBaseCell {
         else {
             return ["H:|-16-[valueLabel]-\(rightPadding)-|"]
         }
+    }
+    
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
 }

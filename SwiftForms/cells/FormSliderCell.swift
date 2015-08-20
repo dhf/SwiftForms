@@ -12,16 +12,14 @@ public class FormSliderCell: FormTitleCell {
     
     public let sliderView = UISlider()
     
-    /// MARK: FormBaseCell
-    
-    public override func configure() {
-        super.configure()
+    public required init(style: UITableViewCellStyle, reuseIdentifier: String!) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         selectionStyle = .None
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         sliderView.translatesAutoresizingMaskIntoConstraints = false
-                
+        
         contentView.addSubview(titleLabel)
         contentView.addSubview(sliderView)
         
@@ -60,10 +58,13 @@ public class FormSliderCell: FormTitleCell {
             "H:|-16-[titleLabel]-16-[sliderView]-16-|"
         ]
     }
-    
-    /// MARK: Actions
-    
+        
     internal func valueChanged(_: UISlider) {
         rowDescriptor.value = sliderView.value
+    }
+    
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
 }

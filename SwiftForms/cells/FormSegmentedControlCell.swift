@@ -15,10 +15,8 @@ public class FormSegmentedControlCell: FormBaseCell {
     public let titleLabel = UILabel()
     public let segmentedControl = UISegmentedControl()
     
-    /// MARK: FormBaseCell
-    
-    public override func configure() {
-        super.configure()
+    public required init(style: UITableViewCellStyle, reuseIdentifier: String!) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         selectionStyle = .None
         
@@ -28,7 +26,9 @@ public class FormSegmentedControlCell: FormBaseCell {
         titleLabel.setContentCompressionResistancePriority(500, forAxis: .Horizontal)
         segmentedControl.setContentCompressionResistancePriority(500, forAxis: .Horizontal)
         
-        titleLabel.font = titleLabelFont
+        titleLabel.font = (self as? FormFontDefaults).map {
+            $0.titleLabelFont
+            } ?? UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
         
         contentView.addSubview(titleLabel)
         contentView.addSubview(segmentedControl)
@@ -82,5 +82,10 @@ public class FormSegmentedControlCell: FormBaseCell {
                 segmentedControl.insertSegmentWithTitle(rowDescriptor.titleForOptionValue(optionValue), atIndex: idx, animated: false)
             }
         }
+    }
+    
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
 }

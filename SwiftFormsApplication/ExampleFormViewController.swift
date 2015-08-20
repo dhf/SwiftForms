@@ -9,6 +9,12 @@
 import UIKit
 import SwiftForms
 
+extension FormBaseCell: FormFontDefaults {
+    public var titleLabelFont: UIFont { return UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline) }
+    public var valueLabelFont: UIFont { return UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline) }
+    public var textFieldFont: UIFont { return UIFont.preferredFontForTextStyle(UIFontTextStyleBody) }
+}
+
 class ExampleFormViewController: FormViewController {
     
     struct Static {
@@ -95,8 +101,6 @@ class ExampleFormViewController: FormViewController {
             }
         }
         
-//        row.configuration.cellConfiguration = ["titleLabel.font" : UIFont.boldSystemFontOfSize(30.0), "segmentedControl.tintColor" : UIColor.redColor()]
-
         row.configuration.cellConfiguration = ["segmentedControl.tintColor" : UIColor.redColor()]
 
         section4.addRow(row)

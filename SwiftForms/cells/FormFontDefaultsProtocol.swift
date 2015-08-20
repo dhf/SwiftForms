@@ -12,22 +12,16 @@ public protocol FormFontDefaults {
     var textFieldFont: UIFont { get }
 }
 
-public extension FormFontDefaults {
-    var titleLabelFont: UIFont { return UIFont.preferredFontForTextStyle(UIFontTextStyleBody) }
-    var valueLabelFont: UIFont { return UIFont.preferredFontForTextStyle(UIFontTextStyleBody) }
-    var textFieldFont: UIFont { return UIFont.preferredFontForTextStyle(UIFontTextStyleBody) }
-}
-
 /*
 To override the font styling, or to use your own custom font,
-add an extension to `FormBaseCell` that overrides the default extension
+conform `FormBaseCell` to the `FormFontDefaults` protocol.
 
 Example:
 
-public extension FormBaseCell {
-    var titleLabelFont: UIFont { return UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline) }
-    var valueLabelFont: UIFont { return UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1) }
-    var textFieldFont: UIFont { return UIFont.preferredFontForTextStyle(UIFontTextStyleCaption2) }
+extension FormBaseCell: FormFontDefaults {
+    public var titleLabelFont: UIFont { return UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline) }
+    public var valueLabelFont: UIFont { return UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1) }
+    public var textFieldFont: UIFont { return UIFont.preferredFontForTextStyle(UIFontTextStyleCaption2) }
 }
 
 */

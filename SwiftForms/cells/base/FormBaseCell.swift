@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class FormBaseCell: UITableViewCell, FormFontDefaults {
+public class FormBaseCell: UITableViewCell {
 
     /// MARK: Properties
     
@@ -21,16 +21,6 @@ public class FormBaseCell: UITableViewCell, FormFontDefaults {
     public weak var formViewController: FormViewController!
     
     private var customConstraints: [NSLayoutConstraint] = []
-    
-    /// MARK: Init
-    
-    public required override init(style: UITableViewCellStyle, reuseIdentifier: String!) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-    }
-
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
     
     /// MARK: Public interface
     
@@ -101,5 +91,15 @@ public class FormBaseCell: UITableViewCell, FormFontDefaults {
         
         NSLayoutConstraint.activateConstraints(customConstraints)
         super.updateConstraints()
+    }
+    
+    /// MARK: Init
+    
+    public required override init(style: UITableViewCellStyle, reuseIdentifier: String!) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
 }

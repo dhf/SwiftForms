@@ -15,10 +15,9 @@ public class FormPickerCell: FormValueCell, UIPickerViewDelegate, UIPickerViewDa
     private let picker = UIPickerView()
     private let hiddenTextField = UITextField(frame: CGRectZero)
     
-    /// MARK: FormBaseCell
-    
-    public override func configure() {
-        super.configure()
+    public required init(style: UITableViewCellStyle, reuseIdentifier: String!) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
         accessoryType = .None
         
         picker.delegate = self
@@ -75,5 +74,10 @@ public class FormPickerCell: FormValueCell, UIPickerViewDelegate, UIPickerViewDa
     
     public func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return rowDescriptor.configuration.options?.count ?? 0
+    }
+    
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
 }
