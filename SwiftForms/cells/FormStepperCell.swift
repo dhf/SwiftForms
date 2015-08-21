@@ -13,18 +13,14 @@ public class FormStepperCell: FormTitleCell {
     public let stepperView = UIStepper()
     public let countLabel = UILabel()
     
-    /// MARK: FormBaseCell
-    
-    public override func configure() {
-        super.configure()
+    public required init(style: UITableViewCellStyle, reuseIdentifier: String!) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         selectionStyle = .None
         
-        titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        stepperView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        countLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        
-        titleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        stepperView.translatesAutoresizingMaskIntoConstraints = false
+        countLabel.translatesAutoresizingMaskIntoConstraints = false
         countLabel.textAlignment = .Right
         
         contentView.addSubview(titleLabel)
@@ -70,10 +66,13 @@ public class FormStepperCell: FormTitleCell {
         ]
     }
     
-    /// MARK: Actions
-    
     internal func valueChanged(_: UISwitch) {
         rowDescriptor.value = stepperView.value
         countLabel.text = rowDescriptor.value?.description
+    }
+    
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
 }

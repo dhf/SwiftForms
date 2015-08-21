@@ -20,17 +20,7 @@ public class FormBaseCell: UITableViewCell {
     
     public weak var formViewController: FormViewController!
     
-    private var customConstraints: [AnyObject] = []
-    
-    /// MARK: Init
-    
-    public required override init(style: UITableViewCellStyle, reuseIdentifier: String!) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-    }
-
-    public required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
+    private var customConstraints: [NSLayoutConstraint] = []
     
     /// MARK: Public interface
     
@@ -92,24 +82,24 @@ public class FormBaseCell: UITableViewCell {
         NSLayoutConstraint.deactivateConstraints(customConstraints)
         customConstraints.removeAll()
 
+        let visualConstraints = rowDescriptor.configuration.visualConstraintsClosure.map { $0(self) } ?? defaultVisualConstraints()
+        
         let views = constraintsViews()
-        let visualConstraints: [String]
-        
-        if let visualConstraintsClosure = rowDescriptor.configuration.visualConstraintsClosure {
-            visualConstraints = visualConstraintsClosure(self)
-        }
-        else {
-            visualConstraints = self.defaultVisualConstraints()
+        customConstraints = visualConstraints.flatMap { visualConstraint in
+            NSLayoutConstraint.constraintsWithVisualFormat(visualConstraint, options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views)
         }
         
-        for visualConstraint in visualConstraints {
-            let constraints = NSLayoutConstraint.constraintsWithVisualFormat(visualConstraint, options: NSLayoutFormatOptions(0), metrics: nil, views: views)
-            for constraint in constraints {
-                customConstraints.append(constraint)
-            }
-        }
-        
-        contentView.addConstraints(customConstraints)
+        NSLayoutConstraint.activateConstraints(customConstraints)
         super.updateConstraints()
+    }
+    
+    /// MARK: Init
+    
+    public required override init(style: UITableViewCellStyle, reuseIdentifier: String!) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
 }

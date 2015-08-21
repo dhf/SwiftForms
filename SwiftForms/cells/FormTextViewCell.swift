@@ -15,27 +15,27 @@ public class FormTextViewCell : FormBaseCell, UITextViewDelegate {
     public let titleLabel = UILabel()
     public let textField = UITextView()
     
-    /// MARK: Properties
-    
-    private var customConstraints: [AnyObject] = []
-    
     /// MARK: Class Funcs
+    
     public override class func formRowCellHeight() -> CGFloat {
         return 110.0
     }
-    
-    /// MARK: FormBaseCell
-    
-    public override func configure() {
-        super.configure()
+
+    public required init(style: UITableViewCellStyle, reuseIdentifier: String!) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         selectionStyle = .None
         
-        titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        textField.setTranslatesAutoresizingMaskIntoConstraints(false)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        textField.translatesAutoresizingMaskIntoConstraints = false
         
-        titleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-        textField.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+        if let fontDefault = self as? FormFontDefaults {
+            titleLabel.font = fontDefault.titleLabelFont
+            textField.font = fontDefault.textFieldFont
+        } else {
+            titleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+            textField.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+        }
         
         contentView.addSubview(titleLabel)
         contentView.addSubview(textField)
@@ -49,7 +49,7 @@ public class FormTextViewCell : FormBaseCell, UITextViewDelegate {
         
         textField.delegate = self
     }
-    
+
     public override func update() {
         
         titleLabel.text = rowDescriptor.title
@@ -86,6 +86,11 @@ public class FormTextViewCell : FormBaseCell, UITextViewDelegate {
     
     public func textViewDidChange(textView: UITextView) {
         let trimmedText = textView.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-        rowDescriptor.value = count(trimmedText) > 0 ? trimmedText : nil
+        rowDescriptor.value = trimmedText.characters.count > 0 ? trimmedText : nil
+    }
+    
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
 }
