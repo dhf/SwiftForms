@@ -36,6 +36,7 @@
 		0CCA34891B050525006D9666 /* FormSectionDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CCA34771B050525006D9666 /* FormSectionDescriptor.swift */; };
 		0CDBB4F11B10699A00BE6ACF /* FormStepperCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDBB4F01B10699A00BE6ACF /* FormStepperCell.swift */; };
 		0CDBB4F31B10724600BE6ACF /* FormSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDBB4F21B10724600BE6ACF /* FormSliderCell.swift */; };
+		E7C036031B8221C80079BC40 /* FormFontDefaultsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C036021B8221C70079BC40 /* FormFontDefaultsProtocol.swift */; };
 		E7EF07961B63AD0B00C70B3B /* FunctionalAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7EF07951B63AD0B00C70B3B /* FunctionalAdditions.swift */; };
 /* End PBXBuildFile section */
 
@@ -97,6 +98,7 @@
 		0CCA34771B050525006D9666 /* FormSectionDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormSectionDescriptor.swift; sourceTree = "<group>"; };
 		0CDBB4F01B10699A00BE6ACF /* FormStepperCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormStepperCell.swift; sourceTree = "<group>"; };
 		0CDBB4F21B10724600BE6ACF /* FormSliderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormSliderCell.swift; sourceTree = "<group>"; };
+		E7C036021B8221C70079BC40 /* FormFontDefaultsProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormFontDefaultsProtocol.swift; sourceTree = "<group>"; };
 		E7EF07951B63AD0B00C70B3B /* FunctionalAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FunctionalAdditions.swift; path = utilities/FunctionalAdditions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -203,6 +205,7 @@
 		0CCA34621B050525006D9666 /* cells */ = {
 			isa = PBXGroup;
 			children = (
+				E7C036021B8221C70079BC40 /* FormFontDefaultsProtocol.swift */,
 				0CCA34631B050525006D9666 /* base */,
 				0CCA34671B050525006D9666 /* FormButtonCell.swift */,
 				0CCA34681B050525006D9666 /* FormCheckCell.swift */,
@@ -314,7 +317,9 @@
 		0CCA33CF1B04FA5A006D9666 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Miguel Angel Ortuno Ortuno";
 				TargetAttributes = {
 					0CCA33D61B04FA5A006D9666 = {
@@ -389,6 +394,7 @@
 				0CCA34841B050525006D9666 /* FormOptionsSelectorController.swift in Sources */,
 				E7EF07961B63AD0B00C70B3B /* FunctionalAdditions.swift in Sources */,
 				0CCA34861B050525006D9666 /* FormViewController.swift in Sources */,
+				E7C036031B8221C80079BC40 /* FormFontDefaultsProtocol.swift in Sources */,
 				0CCA347B1B050525006D9666 /* FormButtonCell.swift in Sources */,
 				0CDBB4F11B10699A00BE6ACF /* FormStepperCell.swift in Sources */,
 				0CCA34801B050525006D9666 /* FormSelectorCell.swift in Sources */,
@@ -446,6 +452,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -514,6 +521,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SwiftFormsApplication/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yuilop.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -524,6 +532,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SwiftFormsApplication/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yuilop.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -543,6 +552,7 @@
 				INFOPLIST_FILE = SwiftForms/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ortulabs.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -561,6 +571,7 @@
 				INFOPLIST_FILE = SwiftForms/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ortulabs.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				VERSIONING_SYSTEM = "apple-generic";

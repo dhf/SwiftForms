@@ -21,8 +21,8 @@ public class FormSelectorCell: FormValueCell {
         
         if let selectedValues = rowDescriptor.value as? [NSObject], // multiple values
            let options = rowDescriptor.configuration.options {
-               let strs = options.filter { contains(selectedValues, $0) }.map { self.rowDescriptor.titleForOptionValue($0) }
-               title = join(", ", strs)
+               let strs = options.filter { selectedValues.contains($0) }.map { rowDescriptor.titleForOptionValue($0) }
+               title = strs.join(", ")
         } else if let selectedValue = rowDescriptor.value { // single value
             title = rowDescriptor.titleForOptionValue(selectedValue)
         }
@@ -45,7 +45,7 @@ public class FormSelectorCell: FormValueCell {
             let selectorController: UIViewController
 
             if let selectorControllerClass = row.rowDescriptor.configuration.selectorControllerClass as? UIViewController.Type {
-                selectorController = selectorControllerClass()
+                selectorController = selectorControllerClass.init()
             }
             else { // fallback to default cell class
                 selectorController = FormOptionsSelectorController()

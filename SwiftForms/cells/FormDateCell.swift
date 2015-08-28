@@ -90,6 +90,7 @@ public class FormDateCell: FormValueCell {
     /// MARK: Private interface
     
     private func getDateFormatter() -> NSDateFormatter {
-        return maybe(defaultValue: defaultDateFormatter, rowDescriptor.configuration.dateFormatter) { $0 }
+        return rowDescriptor.configuration.dateFormatter ?? defaultDateFormatter
+
     }
 }

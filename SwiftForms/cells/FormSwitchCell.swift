@@ -14,10 +14,8 @@ public class FormSwitchCell: FormTitleCell {
     
     public let switchView = UISwitch()
     
-    /// MARK: FormBaseCell
-    
-    public override func configure() {
-        super.configure()
+    public required init(style: UITableViewCellStyle, reuseIdentifier: String!) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         selectionStyle = .None
         
@@ -38,11 +36,14 @@ public class FormSwitchCell: FormTitleCell {
         }
     }
     
-    /// MARK: Actions
-    
     internal func valueChanged(_: UISwitch) {
         if switchView.on != rowDescriptor.value {
             rowDescriptor.value = switchView.on
         }
+    }
+    
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
 }

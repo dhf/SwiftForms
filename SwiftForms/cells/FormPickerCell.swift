@@ -15,10 +15,9 @@ public class FormPickerCell: FormValueCell, UIPickerViewDelegate, UIPickerViewDa
     private let picker = UIPickerView()
     private let hiddenTextField = UITextField(frame: CGRectZero)
     
-    /// MARK: FormBaseCell
-    
-    public override func configure() {
-        super.configure()
+    public required init(style: UITableViewCellStyle, reuseIdentifier: String!) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
         accessoryType = .None
         
         picker.delegate = self
@@ -36,7 +35,7 @@ public class FormPickerCell: FormValueCell, UIPickerViewDelegate, UIPickerViewDa
         if let value = rowDescriptor.value {
             valueLabel.text = rowDescriptor.titleForOptionValue(value)
             if let options = rowDescriptor.configuration.options,
-               let index = find(options, value) {
+               let index = options.indexOf(value) {
                 picker.selectRow(index, inComponent: 0, animated: false)
             }
         }
@@ -56,7 +55,7 @@ public class FormPickerCell: FormValueCell, UIPickerViewDelegate, UIPickerViewDa
 
     /// MARK: UIPickerViewDelegate
     
-    public func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String {
+    public func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return rowDescriptor.titleForOptionAtIndex(row)
     }
     
@@ -74,6 +73,11 @@ public class FormPickerCell: FormValueCell, UIPickerViewDelegate, UIPickerViewDa
     }
     
     public func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return maybe(defaultValue: 0, rowDescriptor.configuration.options?.count) { $0 }
+        return rowDescriptor.configuration.options?.count ?? 0
+    }
+    
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
 }

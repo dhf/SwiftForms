@@ -15,24 +15,20 @@ public class FormSegmentedControlCell: FormBaseCell {
     public let titleLabel = UILabel()
     public let segmentedControl = UISegmentedControl()
     
-    /// MARK: Properties
-    
-    private var customConstraints: [AnyObject]!
-    
-    /// MARK: FormBaseCell
-    
-    public override func configure() {
-        super.configure()
+    public required init(style: UITableViewCellStyle, reuseIdentifier: String!) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         selectionStyle = .None
         
-        titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        segmentedControl.setTranslatesAutoresizingMaskIntoConstraints(false)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         
         titleLabel.setContentCompressionResistancePriority(500, forAxis: .Horizontal)
         segmentedControl.setContentCompressionResistancePriority(500, forAxis: .Horizontal)
         
-        titleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+        titleLabel.font = (self as? FormFontDefaults).map {
+            $0.titleLabelFont
+            } ?? UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
         
         contentView.addSubview(titleLabel)
         contentView.addSubview(segmentedControl)
@@ -51,7 +47,7 @@ public class FormSegmentedControlCell: FormBaseCell {
 
         if let value = rowDescriptor.value,
            let options = rowDescriptor.configuration.options,
-           let idx = find(options, value) {
+           let idx = options.indexOf(value) {
             segmentedControl.selectedSegmentIndex = idx
         }
     }
@@ -82,9 +78,14 @@ public class FormSegmentedControlCell: FormBaseCell {
     private func updateSegmentedControl() {
         segmentedControl.removeAllSegments()
         if let options = rowDescriptor.configuration.options {
-            for (idx, optionValue) in enumerate(options) {
+            for (idx, optionValue) in options.enumerate() {
                 segmentedControl.insertSegmentWithTitle(rowDescriptor.titleForOptionValue(optionValue), atIndex: idx, animated: false)
             }
         }
+    }
+    
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
 }

@@ -7,6 +7,7 @@
 
 This is a fork of `SwiftForms` that aims to leverage more of the type safety of Swift. Rather than using a Dictionary of `[NSObject : Any]` for configuration of `FormRowDescriptor`, a statically typed struct is used. This change eliminates a significant amount of type coercing, simplifies code and allows the type checker to guarantee type correctness.
 
+The `master` branch is for use with `Swift 2.0` (there's also a `Swift-1.2` branch).
 * * *
 
 SwiftForms
@@ -33,21 +34,14 @@ form.title = "Example form"
 
 // Define first section
 let section1 = FormSectionDescriptor()
-
-var row = FormRowDescriptor(tag: Static.emailTag, rowType: .Email, title: "Email")
-section1.addRow(row)
-
-row = FormRowDescriptor(tag: "pass", rowType: .Password, title: "Password")
-section1.addRow(row)
++ FormRowDescriptor(tag: Static.emailTag, rowType: .Email, title: "Email")
++ FormRowDescriptor(tag: "pass", rowType: .Password, title: "Password")
 
 // Define second section
 let section2 = FormSectionDescriptor()
-
-row = FormRowDescriptor(tag: "button", rowType: .Button, title: "Submit")
-section2.addRow(row)
++ FormRowDescriptor(tag: "button", rowType: .Button, title: "Submit")
 
 form.sections = [section1, section2]
-
 self.form = form
 ```
 To see a more complex form definition you can take a look to the example application.

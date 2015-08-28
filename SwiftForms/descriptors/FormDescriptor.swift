@@ -18,7 +18,7 @@ public class FormDescriptor: NSObject {
     }
     
     public func removeSection(section: FormSectionDescriptor) {
-        if let index = find(sections, section) {
+        if let index = sections.indexOf(section) {
             sections.removeAtIndex(index)
         }
     }

@@ -39,7 +39,7 @@ public class FormCheckCell: FormTitleCell {
     /// MARK: Private interface
 
     private func check() {
-        rowDescriptor.value = maybe(defaultValue: true, (rowDescriptor.value as? Bool)) { !$0 }
+        rowDescriptor.value = (rowDescriptor.value as? Bool).map { !$0 } ?? true
         accessoryType = (rowDescriptor.value as! Bool) ? .Checkmark : .None
     }
 }

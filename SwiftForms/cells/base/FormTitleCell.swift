@@ -14,13 +14,14 @@ public class FormTitleCell: FormBaseCell {
     
     public let titleLabel = UILabel()
     
-    /// MARK: FormBaseCell
-    
-    public override func configure() {
-        super.configure()
+    public required init(style: UITableViewCellStyle, reuseIdentifier: String!) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        titleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+        titleLabel.font = (self as? FormFontDefaults).map {
+            $0.titleLabelFont
+        } ?? UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
         
         // apply constant constraints
         contentView.addSubview(titleLabel)
@@ -34,5 +35,10 @@ public class FormTitleCell: FormBaseCell {
     
     public override func defaultVisualConstraints() -> [String] {
         return ["H:|-16-[titleLabel]-16-|"]
+    }
+    
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
 }
