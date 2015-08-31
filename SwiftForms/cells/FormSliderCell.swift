@@ -33,10 +33,10 @@ public class FormSliderCell: FormTitleCell {
     public override func update() {
         super.update()
         let config = rowDescriptor.configuration
-        
-        config.maximumValue.map { sliderView.maximumValue = Float($0) }
-        config.minimumValue.map { sliderView.minimumValue = Float($0) }
-        config.continuous.map { sliderView.continuous = $0 }
+
+        if let mx = config.maximumValue { sliderView.maximumValue = Float(mx) }
+        if let mn = config.minimumValue { sliderView.minimumValue = Float(mn) }
+        if let c = config.continuous { sliderView.continuous = c }
         
         titleLabel.text = rowDescriptor.title
         
