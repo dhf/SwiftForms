@@ -46,7 +46,7 @@ public class FormRowDescriptor: NSObject {
     /// MARK: Properties
     
     public var title: String
-    public var rowType: FormRowType = .Unknown
+    public var rowType: FormRowType
     public var tag: String
     
     public var value: NSObject? {
@@ -66,7 +66,7 @@ public class FormRowDescriptor: NSObject {
     
     /// MARK: Init
 
-    public init(tag: String, rowType: FormRowType, title: String, value: NSObject? = .None, placeholder: String? = .None, options: [NSObject]? = .None) {
+    public init(tag: String, rowType: FormRowType = .Unknown, title: String = "", value: NSObject? = .None, placeholder: String? = .None, options: [NSObject]? = .None) {
         configuration.required = true
         configuration.allowsMultipleSelection = false
         configuration.showsInputToolbar = false
