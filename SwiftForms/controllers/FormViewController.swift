@@ -57,6 +57,15 @@ public class FormViewController : UITableViewController {
         }
     }
 
+    public func indexPathOfTag(tag: String) -> NSIndexPath? {
+        for (sectionIndex, section) in form.sections.enumerate() {
+            if let rowIndex = (section.rows.map { $0.tag }).indexOf(tag) {
+                return NSIndexPath(forRow: rowIndex, inSection: sectionIndex)
+            }
+        }
+        return .None
+    }
+    
     /// MARK: UITableViewDataSource
   
     public override func numberOfSectionsInTableView(tableView: UITableView) -> Int {

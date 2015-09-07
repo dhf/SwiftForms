@@ -38,9 +38,9 @@ public class FormStepperCell: FormTitleCell {
         super.update()
         let config = rowDescriptor.configuration
         
-        config.maximumValue.map { stepperView.maximumValue = $0 }
-        config.minimumValue.map { stepperView.minimumValue = $0 }
-        config.steps.map { stepperView.stepValue = $0 }
+        if let mx = config.maximumValue { stepperView.maximumValue = mx }
+        if let mn = config.minimumValue { stepperView.minimumValue = mn }
+        if let s = config.steps { stepperView.stepValue = s }
         
         titleLabel.text = rowDescriptor.title
         
